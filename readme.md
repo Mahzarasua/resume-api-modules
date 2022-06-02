@@ -94,6 +94,7 @@ This is an initial draft, yet there are many ideas waiting to be implemented.
 * [Springboot](https://spring.io/)
 * [Java](https://www.oracle.com/java/technologies/javase-downloads.html)
 * [Intellij](https://www.jetbrains.com/idea/download/)
+* [SB Banner Generator](https://devops.datenkollektiv.de/banner.txt/index.html)
 
 
 
@@ -112,7 +113,18 @@ To get a local copy up and running follow these simple steps.
    ```sh
    npm install
    ```
-3. Check database_script directory and review notes.md file
+3. Make sure Docker is installed and run the following command to get the images installed and started
+  ```sh
+  docker compose up -d --remove-orphans  
+  ```
+4. Check database_script directory and review notes.md file to see instructions related to database
+5. Configuration files used by Config Server were created in a separate [repo](https://github.com/Mahzarasua/ConfigServerRepo/tree/main/config-data)
+   1. Make sure the url matches to the one used in Config Server application.yaml file
+6. Authorization api was created to authenticate users and generate the jwt token.
+7. Resume, Education, Skills and WorkExperience services need authorization-api.jar as a dependency since it is used to authenticate and
+expose an operation to authenticate as part of each service independently. In order to avoid duplicating code
+authentication-api contains the model classes for the database, it also has the configuration classes that
+are used by the other services.
 
 
 <!-- USAGE EXAMPLES -->

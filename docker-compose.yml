@@ -38,7 +38,7 @@ services:
     ports:
       - "9411:9411"
   zookeeper:
-    container_name: zookeper
+    container_name: zookeeper
     image: wurstmeister/zookeeper
     ports:
       - "2181:2181"

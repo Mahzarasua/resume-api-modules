@@ -114,6 +114,12 @@
             <groupId>ma.glasnost.orika</groupId>
             <artifactId>orika-core</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.mahzarasua</groupId>
+            <artifactId>authentication</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <build>

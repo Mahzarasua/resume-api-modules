@@ -7,7 +7,7 @@ import org.springframework.kafka.annotation.KafkaListener;
 @Configuration
 @Slf4j
 public class KafkaConsumerConfig {
-    @KafkaListener(topics = KafkaProducerConfig.TOPIC)
+    @KafkaListener(topics = KafkaProducerConfig.TOPIC, groupId = KafkaProducerConfig.GROUP)
     public void consume(String message){
         log.info("Consumer received the message {}", message);
     }

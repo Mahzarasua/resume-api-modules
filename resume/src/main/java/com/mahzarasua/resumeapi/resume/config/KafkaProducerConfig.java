@@ -11,8 +11,9 @@ import org.springframework.kafka.core.KafkaTemplate;
 @Slf4j
 public class KafkaProducerConfig {
    public static final String TOPIC = "work_experience";
+    public static final String GROUP = "group_id";
 
-   @Autowired
+    @Autowired
     private KafkaTemplate template;
 
    public void sendMessage(String message){
