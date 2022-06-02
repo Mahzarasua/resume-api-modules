@@ -1,0 +1,92 @@
+version: "3.8"
+services:
+  postgres:
+    image: postgres:11.5-alpine
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Welcome
+      POSTGRES_DB: resume-api
+    ports:
+      - "5432:5432"
+  activemq:
+    image: rmohr/activemq:5.14.0-alpine
+    container_name: activemq
+    ports:
+      - "61616:61616"
+      - "8161:8161"
+  rabbitmq:
+    image: rabbitmq:3.9.11-management-alpine
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    ports:
+      - "5050:80"
+  zipkin:
+    image: openzipkin/zipkin:latest
+    container_name: zipkin
+    restart: always
+    ports:
+      - "9411:9411"
+  zookeeper:
+    container_name: zookeper
+    image: wurstmeister/zookeeper
+    ports:
+      - "2181:2181"
+  kafka:
+    image: wurstmeister/kafka
+    container_name: kafka
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: localhost
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'false'
+#      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+#      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+#      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+#  zookeeper:
+#    image: confluentinc/cp-zookeeper:5.2.1
+#    container_name: zookeeper
+#    environment:
+#      ZOOKEEPER_CLIENT_PORT: 2181
+#      ZOOKEEPER_TICK_TIME: 2000
+#  # This has three listeners you can experiment with.
+#  # BOB for internal traffic on the Docker network
+#  # FRED for traffic from the Docker-host machine (`localhost`)
+#  # ALICE for traffic from outside, reaching the Docker host on the DNS name `never-gonna-give-you-up`
+#  # Use
+#  kafka:
+#    image: confluentinc/cp-enterprise-kafka:5.2.1
+#    container_name: kafka
+#    ports:
+#      - '9092:9092'
+#      - '29094:29094'
+#    depends_on:
+#      - zookeeper
+#    environment:
+#      KAFKA_BROKER_ID: 0
+#      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+#      KAFKA_LISTENERS: LISTENER_BOB://kafka:29092,LISTENER_FRED://kafka:9092,LISTENER_ALICE://kafka:29094
+#      KAFKA_ADVERTISED_LISTENERS: LISTENER_BOB://kafka:29092,LISTENER_FRED://localhost:9092,LISTENER_ALICE://never-gonna-give-you-up:29094
+#      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: LISTENER_BOB:PLAINTEXT,LISTENER_FRED:PLAINTEXT,LISTENER_ALICE:PLAINTEXT
+#      KAFKA_INTER_BROKER_LISTENER_NAME: LISTENER_BOB
+#      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "false"
+#      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+#      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 100
+#  kafkacat:
+#    image: confluentinc/cp-kafkacat
+#    container_name: kafkacat
+#    command: sleep infinity
+networks:
+  postgres:
+    driver: bridge

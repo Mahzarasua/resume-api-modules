@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: education-api
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: CONFIG-SERVICE
+      enabled: true
+      server:
+        encrypt:
+          enabled: true
+          plainTextEncrypt: true
+  #      uri: http://localhost:8888
+  #      uri: http://CONFIG-SERVICE
+  encrypt:
+    key: Rg#k7JyV92'7

@@ -1,0 +1,39 @@
+info:
+  app:
+    version: ${project.version}
+    name: ${project.name}
+    description: ${project.description}
+    spring-cloud-version: ${spring-cloud.version}
+    spring-boot-version: ${spring.boot.starter.parent.version}
+    open-api-specification-version: ${swagger.core.v3.version}
+    healthcheck: ${management.endpoints.web.base-path}/health
+logging:
+  level:
+    com:
+      mahzarasua: DEBUG
+    org:
+      springframework: INFO
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE
+spring:
+  output:
+    ansi:
+      enabled: ALWAYS
+  application:
+    name: ${project.name}
+  security:
+    user:
+      name: ${username}
+      password: ${password}
+eureka:
+  instance:
+    statusPageUrlPath: ${management.endpoints.web.base-path}/info
+    healthCheckUrlPath: ${management.endpoints.web.base-path}/health
+    preferIpAddress: true
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka

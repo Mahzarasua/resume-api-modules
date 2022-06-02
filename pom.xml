@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.mahzarasua</groupId>
+  <artifactId>resume-api-modules</artifactId>
+  <packaging>pom</packaging>
+  <version>1.0-SNAPSHOT</version>
+  <modules>
+    <module>resume</module>
+    <module>workexperience</module>
+    <module>eureka-server</module>
+    <module>education</module>
+    <module>skills</module>
+    <module>authentication</module>
+    <module>config-server</module>
+  </modules>
+
+  <name>resume-api-modules</name>
+  <url>http://localhost:8082/</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>8</maven.compiler.source>
+    <maven.compiler.target>8</maven.compiler.target>
+    <spring.boot.maven.plugin.version>2.6.7</spring.boot.maven.plugin.version>
+    <spring.boot.depencencies.version>2.6.7</spring.boot.depencencies.version>
+    <spring.boot.starter.parent.version>2.6.4</spring.boot.starter.parent.version>
+    <springdoc.openapi.ui.version>1.6.8</springdoc.openapi.ui.version>
+    <swagger.core.v3.version>2.2.0</swagger.core.v3.version>
+    <io.jsonwebtoken.version>0.9.1</io.jsonwebtoken.version>
+    <ma.glasnost.orika.version>1.5.4</ma.glasnost.orika.version>
+    <springdoc.openapi.maven.plugin.version>1.4</springdoc.openapi.maven.plugin.version>
+    <spring-cloud.version>2021.0.2</spring-cloud.version>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-dependencies</artifactId>
+        <version>${spring.boot.depencencies.version}</version>
+        <scope>import</scope>
+        <type>pom</type>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>${spring.boot.starter.parent.version}</version>
+        <scope>import</scope>
+        <type>pom</type>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-dependencies</artifactId>
+        <version>${spring-cloud.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>io.jsonwebtoken</groupId>
+        <artifactId>jjwt</artifactId>
+        <version>${io.jsonwebtoken.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>ma.glasnost.orika</groupId>
+        <artifactId>orika-core</artifactId>
+        <version>${ma.glasnost.orika.version}</version>
+      </dependency>
+      <!--        SWAGGER-->
+      <dependency>
+        <groupId>org.springdoc</groupId>
+        <artifactId>springdoc-openapi-ui</artifactId>
+        <version>${springdoc.openapi.ui.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.swagger.core.v3</groupId>
+        <artifactId>swagger-annotations</artifactId>
+        <version>${swagger.core.v3.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.swagger.core.v3</groupId>
+        <artifactId>swagger-core</artifactId>
+        <version>${swagger.core.v3.version}</version>
+      </dependency>
+      <!--        SWAGGER-->
+    </dependencies>
+  </dependencyManagement>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-maven-plugin</artifactId>
+          <version>${spring.boot.maven.plugin.version}</version>
+          <executions>
+            <execution>
+              <id>pre-integration-test</id>
+              <goals>
+                <goal>start</goal>
+              </goals>
+            </execution>
+            <execution>
+              <id>post-integration-test</id>
+              <goals>
+                <goal>stop</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.springdoc</groupId>
+          <artifactId>springdoc-openapi-maven-plugin</artifactId>
+          <version>${springdoc-openapi-maven-plugin.version}</version>
+          <executions>
+            <execution>
+              <phase>integration-test</phase>
+              <goals>
+                <goal>generate</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+      </resource>
+    </resources>
+  </build>
+</project>

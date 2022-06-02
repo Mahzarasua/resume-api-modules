@@ -1,0 +1,47 @@
+spring:
+  output:
+    ansi:
+      enabled: ALWAYS
+  application:
+    name: ${project.name}
+management:
+  health:
+    probes:
+      enabled: true
+    db:
+      enabled: false
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+      base-path: /admin
+  endpoint:
+    health:
+      show-details: always
+  info:
+    env:
+      enabled: true
+info:
+  app:
+    version: ${project.version}
+    name: ${project.name}
+    description: ${project.description}
+    license:
+      name: "MIT License"
+      url: "https://opensource.org/licenses/MIT"
+    contact:
+      name: "Miguel Hernandez"
+      url: "https://github.com/mahzarasua"
+      email: "mahzarasua@hotmail.com"
+    spring-cloud-version: ${spring-cloud.version}
+    spring-boot-version: ${spring.boot.starter.parent.version}
+    open-api-specification-version: ${swagger.core.v3.version}
+server:
+  port: 8761
+
+eureka:
+  client:
+    fetch-registry: false
+    register-with-eureka: false
+  service-url:
+    defaultZone: http://[myIP@]:8761/eureka

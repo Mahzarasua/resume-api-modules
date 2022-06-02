@@ -1,0 +1,47 @@
+spring:
+  output:
+    ansi:
+      enabled: ALWAYS
+  application:
+    name: eureka-server
+management:
+  health:
+    probes:
+      enabled: true
+    db:
+      enabled: false
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+      base-path: /admin
+  endpoint:
+    health:
+      show-details: always
+  info:
+    env:
+      enabled: true
+info:
+  app:
+    version: 0.0.1-SNAPSHOT
+    name: eureka-server
+    description: This is an Eureka Server where APIs can register
+    license:
+      name: "MIT License"
+      url: "https://opensource.org/licenses/MIT"
+    contact:
+      name: "Miguel Hernandez"
+      url: "https://github.com/mahzarasua"
+      email: "mahzarasua@hotmail.com"
+    spring-cloud-version: 2021.0.2
+    spring-boot-version: 2.6.4
+    open-api-specification-version: 2.2.0
+server:
+  port: 8761
+
+eureka:
+  client:
+    fetch-registry: false
+    register-with-eureka: false
+  service-url:
+    defaultZone: http://[myIP@]:8761/eureka
