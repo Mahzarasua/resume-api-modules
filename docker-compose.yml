@@ -51,42 +51,76 @@ services:
       KAFKA_ADVERTISED_HOST_NAME: localhost
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'false'
-#      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-#      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
-#      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
-#  zookeeper:
-#    image: confluentinc/cp-zookeeper:5.2.1
-#    container_name: zookeeper
-#    environment:
-#      ZOOKEEPER_CLIENT_PORT: 2181
-#      ZOOKEEPER_TICK_TIME: 2000
-#  # This has three listeners you can experiment with.
-#  # BOB for internal traffic on the Docker network
-#  # FRED for traffic from the Docker-host machine (`localhost`)
-#  # ALICE for traffic from outside, reaching the Docker host on the DNS name `never-gonna-give-you-up`
-#  # Use
-#  kafka:
-#    image: confluentinc/cp-enterprise-kafka:5.2.1
-#    container_name: kafka
-#    ports:
-#      - '9092:9092'
-#      - '29094:29094'
-#    depends_on:
-#      - zookeeper
-#    environment:
-#      KAFKA_BROKER_ID: 0
-#      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-#      KAFKA_LISTENERS: LISTENER_BOB://kafka:29092,LISTENER_FRED://kafka:9092,LISTENER_ALICE://kafka:29094
-#      KAFKA_ADVERTISED_LISTENERS: LISTENER_BOB://kafka:29092,LISTENER_FRED://localhost:9092,LISTENER_ALICE://never-gonna-give-you-up:29094
-#      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: LISTENER_BOB:PLAINTEXT,LISTENER_FRED:PLAINTEXT,LISTENER_ALICE:PLAINTEXT
-#      KAFKA_INTER_BROKER_LISTENER_NAME: LISTENER_BOB
-#      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "false"
-#      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-#      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 100
-#  kafkacat:
-#    image: confluentinc/cp-kafkacat
-#    container_name: kafkacat
-#    command: sleep infinity
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.7.0
+    container_name: elasticsearch
+    restart: always
+    environment:
+      - xpack.security.enabled=false
+      - discovery.type=single-node
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    cap_add:
+      - IPC_LOCK
+    volumes:
+      - elasticsearch-data-volume:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+    networks:
+      - elk
+  logstash:
+    container_name: logstash
+    image: docker.elastic.co/logstash/logstash:7.7.0
+    restart: always
+    volumes:
+      - type: bind
+        source: ./logstash_pipeline/
+        target: /usr/share/logstash/pipeline
+        read_only: true
+    depends_on:
+      - elasticsearch
+    ports:
+      - 5000:5000
+    environment:
+      LS_JAVA_OPTS: "-Xmx256m -Xms256m"
+    networks:
+      - elk
+  kibana:
+    container_name: kibana
+    image: docker.elastic.co/kibana/kibana:7.7.0
+    restart: always
+    environment:
+      - ELASTICSEARCH_HOST:http://elasticsearch:9200
+    ports:
+      - 5601:5601
+    depends_on:
+      - elasticsearch
+    networks:
+      - elk
+  filebeat:
+    stdin_open: true
+    tty: true
+    container_name: filebeat
+    links:
+      - elasticsearch
+      - kibana
+    image: docker.elastic.co/beats/filebeat:7.7.0
+    environment:
+      - setup.kibana.host=kibana:5601
+      - output.elasticsearch.hosts=["elasticsearch:9200"]
+    command:
+      - setup
+    networks:
+      - elk
+volumes:
+  elasticsearch-data-volume:
+    driver: local
 networks:
   postgres:
     driver: bridge
+  elk:

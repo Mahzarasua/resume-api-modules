@@ -28,7 +28,7 @@ import java.util.Map;
 
 @Validated
 @RestController
-@RequestMapping(value = "/api/v1/education", produces = "application/json")
+@RequestMapping(value = "/api/v1/education", produces = MediaType.APPLICATION_JSON_VALUE)
 @SecurityRequirement(name = "jwtAuth")
 public class EducationController {
     @Autowired
@@ -39,19 +39,19 @@ public class EducationController {
     @Operation(summary = "This operation will return a list of schools associated to a resume id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successful Operation",
-                    content = {@Content(mediaType = "application/json",
+                    content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = EducationResponse.class))}),
             @ApiResponse(responseCode = "400", description = "Bad Request",
-                    content = {@Content(mediaType = "application/json",
+                    content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = ExceptionBody.class))}),
             @ApiResponse(responseCode = "404", description = "Not Found",
-                    content = {@Content(mediaType = "application/json",
+                    content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = ExceptionBody.class))}),
             @ApiResponse(responseCode = "409", description = "Conflict",
-                    content = {@Content(mediaType = "application/json",
+                    content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = ExceptionBody.class))}),
             @ApiResponse(responseCode = "500", description = "Internal server error",
-                    content = {@Content(mediaType = "application/json",
+                    content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = ExceptionBody.class))})
     })
     public EducationResponse getEducationListbyId(@PathVariable String resumeId) {
@@ -63,19 +63,19 @@ public class EducationController {
     @Operation(summary = "This operation will associate a new school and will return the list of schools associated to a resume id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successful Operation",
-                    content = {@Content(mediaType = "application/json",
+                    content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = EducationResponse.class))}),
             @ApiResponse(responseCode = "400", description = "Bad Request",
-                    content = {@Content(mediaType = "application/json",
+                    content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = ExceptionBody.class))}),
             @ApiResponse(responseCode = "404", description = "Not Found",
-                    content = {@Content(mediaType = "application/json",
+                    content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = ExceptionBody.class))}),
             @ApiResponse(responseCode = "409", description = "Conflict",
-                    content = {@Content(mediaType = "application/json",
+                    content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = ExceptionBody.class))}),
             @ApiResponse(responseCode = "500", description = "Internal server error",
-                    content = {@Content(mediaType = "application/json",
+                    content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = ExceptionBody.class))})
     })
     public EducationResponse createEducationList(@RequestBody EducationRequest request) {
@@ -87,19 +87,19 @@ public class EducationController {
     @Operation(summary = "This operation will remove workExp and will return the list of workExp associated to a resume id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successful Operation",
-                    content = {@Content(mediaType = "application/json",
+                    content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = String.class))}),
             @ApiResponse(responseCode = "400", description = "Bad Request",
-                    content = {@Content(mediaType = "application/json",
+                    content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = ExceptionBody.class))}),
             @ApiResponse(responseCode = "404", description = "Not Found",
-                    content = {@Content(mediaType = "application/json",
+                    content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = ExceptionBody.class))}),
             @ApiResponse(responseCode = "409", description = "Conflict",
-                    content = {@Content(mediaType = "application/json",
+                    content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = ExceptionBody.class))}),
             @ApiResponse(responseCode = "500", description = "Internal server error",
-                    content = {@Content(mediaType = "application/json",
+                    content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = ExceptionBody.class))})
     })
     public Map<String, String> deleteEducationList(@PathVariable String resumeId,

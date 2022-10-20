@@ -31,7 +31,6 @@
     ·
     <a href="https://github.com/Mahzarasua/resume-api-modules/issues">Request Feature</a>
   </p>
-</p>
 
 <!-- TABLE OF CONTENTS -->
 <details open="open">
@@ -55,31 +54,24 @@
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgements">Acknowledgements</a></li>
+    <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-REST API Modules is a multi modules project. The goal is to manage Resumes
-so a Front End application can create, read, update or delete the information.
+REST API Modules is a multi modules project. The goal is to manage Resumes so a Front End application can create, read, update or delete the information.
 
-The main goal was to implement the concepts of microservices and have them interact
-with each other.
+The main goal was to implement the concepts of microservices and have them interact with each other.
 
-Adding security for JWT and encryption and decryption for config server, 
-have all the services registering with the discovery service and gather metrics
-using zipkin service. Utilize messaging services like RabbitMQ, ActiveMQ and Kafka.
+Adding security for JWT and encryption and decryption for config server, have all the services registering with the discovery service and gather metrics using Zipkin service. Utilize messaging services like RabbitMQ, ActiveMQ, and Kafka.
 
-The service interacts with Docker, a compose file has been included to get the images 
-required for the services to work out of the box.
+The service interacts with Docker, a compose file has been included to get the images required for the services to work out of the box.
 
-A bit of manual work is required to create the tables in the database and insert the initial
-data needed by the services. Instructions were included on how to perform this task.
+A bit of manual work is required to create the tables in the database and insert the initial data needed by the services. Instructions were included on how to perform this task.
 
-This is an initial draft, yet there are many ideas waiting to be implemented.
-
+This is an initial draft, yet many ideas are waiting to be implemented.
 
 ### Built With
 
@@ -109,9 +101,9 @@ To get a local copy up and running follow these simple steps.
    ```sh
    git clone https://github.com/Mahzarasua/resume-api-modules.git
    ```
-2. Install NPM packages
+2. Open the project with Intellij and do a Maven build to get the dependencies
    ```sh
-   npm install
+   mvn install
    ```
 3. Make sure Docker is installed and run the following command to get the images installed and started
   ```sh
@@ -120,9 +112,9 @@ To get a local copy up and running follow these simple steps.
 4. Check database_script directory and review notes.md file to see instructions related to database
 5. Configuration files used by Config Server were created in a separate [repo](https://github.com/Mahzarasua/ConfigServerRepo/tree/main/config-data)
    1. Make sure the url matches to the one used in Config Server application.yaml file
-6. Authorization api was created to authenticate users and generate the jwt token.
-7. Resume, Education, Skills and WorkExperience services need authorization-api.jar as a dependency since it is used to authenticate and
-expose an operation to authenticate as part of each service independently. In order to avoid duplicating code
+6. Authentication api was created to authenticate users and generate the jwt token.
+7. Resume, Education, Skills and WorkExperience services have a dependency on authorization-api due to the fact that this service is used to authenticate users
+and it will expose an operation to do so on of each service independently. In order to avoid duplicating code
 authentication-api contains the model classes for the database, it also has the configuration classes that
 are used by the other services.
 
@@ -137,7 +129,7 @@ recommended in which the services must be started.
 2. Config-server
 3. Authentication
 4. Resume
-5. WorkExperience
+5. Education/Skills/WorkExperience
 
 The following services can be started after Authentication is running.
 
@@ -182,8 +174,8 @@ Project Link: [https://github.com/Mahzarasua/resume-api-modules](https://github.
 
 
 
-<!-- ACKNOWLEDGEMENTS -->
-## Acknowledgements
+<!-- Acknowledgments -->
+## Acknowledgments
 
 * []()
 * []()
