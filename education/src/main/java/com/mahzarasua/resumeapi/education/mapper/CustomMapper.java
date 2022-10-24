@@ -32,7 +32,15 @@ public class CustomMapper extends ResumeMapper {
                 .field("id.id","id")
                 .field("id.resumeId","resumeId")
                 .byDefault().mapNulls(false).register();
+        factory.classMap(School.class, EducationRequest.EducationRequests.class)
+                .field("id.id","id")
+                .field("id.resumeId","resumeId")
+                .byDefault().mapNulls(false).register();
         factory.classMap(EducationRequest.EducationRequests.class, School.class)
+                .field("id","id.id")
+                .field("resumeId","id.resumeId")
+                .byDefault().mapNulls(false).register();
+        factory.classMap(EducationResponse.EducationResponses.class, School.class)
                 .field("id","id.id")
                 .field("resumeId","id.resumeId")
                 .byDefault().mapNulls(false).register();

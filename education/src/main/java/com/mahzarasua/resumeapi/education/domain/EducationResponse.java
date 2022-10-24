@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class EducationResponse {
     @Data
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class EducationResponses {
+    public static class EducationResponses implements Serializable {
         private String id;
         private String resumeId;
         private String name;

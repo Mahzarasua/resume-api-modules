@@ -1,13 +1,13 @@
 package com.mahzarasua.resumeapi.education.service;
 
 import com.mahzarasua.resumeapi.configuration.exception.CustomNotFoundException;
-import com.mahzarasua.resumeapi.configuration.mapper.ResumeMapper;
-import com.mahzarasua.resumeapi.education.domain.EducationRequest;
-import com.mahzarasua.resumeapi.education.domain.EducationResponse;
-import com.mahzarasua.resumeapi.education.repository.EducationRepository;
-import com.mahzarasua.resumeapi.education.repository.ResumeRepository;
 import com.mahzarasua.resumeapi.configuration.model.School;
 import com.mahzarasua.resumeapi.configuration.model.School.SchoolId;
+import com.mahzarasua.resumeapi.education.domain.EducationRequest;
+import com.mahzarasua.resumeapi.education.domain.EducationResponse;
+import com.mahzarasua.resumeapi.education.mapper.CustomMapper;
+import com.mahzarasua.resumeapi.education.repository.EducationRepository;
+import com.mahzarasua.resumeapi.education.repository.ResumeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +27,7 @@ public class EducationServiceImpl implements EducationService {
     private ResumeRepository resumeRepository;
 
     @Autowired
-    private ResumeMapper mapper;
+    private CustomMapper mapper;
 
     @Override
     public EducationResponse getEducationbyResourceId(String resumeId) {
@@ -89,7 +89,7 @@ public class EducationServiceImpl implements EducationService {
         checkResumeId(wid);
 
         School response = repository.findById(wid)
-                .orElseThrow(() -> new CustomNotFoundException(String.format("Education with id% was not found", wid.getId())));
+                .orElseThrow(() -> new CustomNotFoundException(String.format("Education with id %s was not found", wid.getId())));
 
         repository.delete(response);
         Map<String, String> map = new HashMap<>();
