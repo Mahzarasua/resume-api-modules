@@ -87,7 +87,7 @@ public class WorkExpServiceImpl implements WorkExpService {
                 .getId();
 
         WorkExperience response = repository.findById(wid)
-                .orElseThrow(() -> new CustomNotFoundException(String.format("WorkExperience with id% was not found", wid.getId())));
+                .orElseThrow(() -> new CustomNotFoundException(String.format("WorkExperience with id %s was not found", wid.getId())));
 
         repository.delete(response);
 

@@ -87,7 +87,7 @@ public class ResumeServiceImpl implements ResumeService {
 
         HttpEntity<String> entity = new HttpEntity<>("body", headers);
 
-        ResponseEntity<WorkExpResponse> workResponse = null;
+        ResponseEntity<WorkExpResponse> workResponse;
 
         try{
             workResponse = restTemplate.exchange("http://WORKEXPERIENCE-API/api/v1/work/{resumeId}",
@@ -130,7 +130,7 @@ public class ResumeServiceImpl implements ResumeService {
     public String deleteResumebyId(String resumeId) {
 
         Resume response = resumeRepository.findById(resumeId)
-                .orElseThrow(() -> new CustomNotFoundException(String.format("WorkExperience with id% was not found", resumeId)));
+                .orElseThrow(() -> new CustomNotFoundException(String.format("Resume with id %s was not found", resumeId)));
 
         resumeRepository.delete(response);
 

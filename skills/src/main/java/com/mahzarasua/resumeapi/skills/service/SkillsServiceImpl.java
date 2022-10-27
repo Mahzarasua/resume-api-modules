@@ -89,7 +89,7 @@ public class SkillsServiceImpl implements SkillsService {
         checkResumeId(wid);
 
         Skill response = repository.findById(wid)
-                .orElseThrow(() -> new CustomNotFoundException(String.format("Skill with id% was not found", wid.getId())));
+                .orElseThrow(() -> new CustomNotFoundException(String.format("Skill with id %s was not found", wid.getId())));
 
         repository.delete(response);
         Map<String, String> map = new HashMap<>();
