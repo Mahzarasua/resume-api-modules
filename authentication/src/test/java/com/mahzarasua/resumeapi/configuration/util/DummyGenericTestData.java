@@ -2,6 +2,10 @@ package com.mahzarasua.resumeapi.configuration.util;
 
 import com.mahzarasua.resumeapi.configuration.model.Resume;
 import com.mahzarasua.resumeapi.configuration.model.School;
+import com.mahzarasua.resumeapi.configuration.model.Skill;
+import com.mahzarasua.resumeapi.configuration.model.Skill.SkillId;
+import com.mahzarasua.resumeapi.configuration.model.WorkExperience;
+import com.mahzarasua.resumeapi.configuration.model.WorkExperience.WorkExperienceId;
 import org.apache.commons.lang.RandomStringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,7 +43,7 @@ public class DummyGenericTestData {
         School tmp = new School();
         School.SchoolId id = new School.SchoolId();
         id.setId(generateRandomIdString());
-        id.setResumeId(generateRandomString());
+        id.setResumeId(generateRandomIdString());
 
         tmp.setId(id);
         tmp.setName(generateRandomString());
@@ -51,7 +55,44 @@ public class DummyGenericTestData {
         resumeList.add(dummyResumeData());
         tmp.setResume(new Resume());
 
-        log.info("School generated: {}", tmp);
+        log.info("Education generated: {}", tmp);
+
+        return tmp;
+    }
+
+    public static Skill dummySkillData(){
+        Skill tmp = new Skill();
+        SkillId id = new SkillId();
+        id.setId(generateRandomIdString());
+        id.setResumeId(generateRandomIdString());
+
+        tmp.setId(id);
+        tmp.setName(generateRandomString());
+        tmp.setPercentage(Integer.parseInt(generateDummyNumericString(2)));
+        tmp.setType(generateRandomString());
+        tmp.setResume(new Resume());
+
+        log.info("Skill generated: {}", tmp);
+
+        return tmp;
+    }
+
+    public static WorkExperience dummyWorkExpData(){
+        WorkExperience tmp = new WorkExperience();
+        WorkExperience.WorkExperienceId id = new WorkExperienceId();
+        id.setId(generateRandomIdString());
+        id.setResumeId(generateRandomIdString());
+
+        tmp.setId(id);
+        tmp.setTitle(generateRandomString());
+        tmp.setCompany(generateRandomString());
+        tmp.setCurrentJob(true);
+        tmp.setDescription(generateRandomString());
+        tmp.setStartDate(LocalDate.now());
+        tmp.setEndDate(LocalDate.now());
+        tmp.setResume(new Resume());
+
+        log.info("WorkExp generated: {}", tmp);
 
         return tmp;
     }
