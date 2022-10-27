@@ -12,13 +12,9 @@
     <groupId>com.mahzarasua</groupId>
     <artifactId>config-server</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>skills-api</name>
-    <description>This is a REST service to manage Skills attached to a Resume</description>
-
-    <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
-    </properties>
+    <name>config-server</name>
+    <packaging>jar</packaging>
+    <description>This is a REST service to provide the properties used by other REST Services</description>
 
     <dependencies>
         <dependency>
