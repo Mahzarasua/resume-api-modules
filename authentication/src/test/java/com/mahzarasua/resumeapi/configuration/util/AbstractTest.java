@@ -1,4 +1,4 @@
-package com.mahzarasua.resumeapi.education;
+package com.mahzarasua.resumeapi.configuration.util;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
