@@ -5,13 +5,15 @@ import com.mahzarasua.resumeapi.configuration.model.WorkExperience;
 import com.mahzarasua.resumeapi.configuration.model.WorkExperience.WorkExperienceId;
 import com.mahzarasua.resumeapi.workexperience.domain.WorkExpRequest;
 import com.mahzarasua.resumeapi.workexperience.domain.WorkExpResponse;
-import com.mahzarasua.resumeapi.workexperience.mapper.CustomMapper;
+import com.mahzarasua.resumeapi.workexperience.mapper.WorkExpMapper;
 import com.mahzarasua.resumeapi.workexperience.repository.ResumeRepository;
 import com.mahzarasua.resumeapi.workexperience.repository.WorkExperienceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.mahzarasua.resumeapi.configuration.util.DataServiceUtil.getRandomId;
 
@@ -25,7 +27,7 @@ public class WorkExpServiceImpl implements WorkExpService {
     private ResumeRepository resumeRepository;
 
     @Autowired
-    private CustomMapper mapper;
+    private WorkExpMapper mapper;
 
     @Override
     public WorkExpResponse getWorkExpbyResourceId(String resumeId) {
@@ -65,7 +67,7 @@ public class WorkExpServiceImpl implements WorkExpService {
     }
 
     @Override
-    public String deleteWorkExpbyResumeId(String resumeId) {
+    public Map<String, String> deleteWorkExpbyResumeId(String resumeId) {
         List<WorkExperience> response = repository.findByIdResumeId(resumeId);
 
         if(response.size() == 0)
@@ -75,11 +77,14 @@ public class WorkExpServiceImpl implements WorkExpService {
                 response)
             deleteWorkExpbyId(record.getId().getResumeId(), record.getId().getId());
 
-        return resumeId;
+        Map<String, String> map = new HashMap<>();
+        map.put("resumeId", resumeId);
+
+        return map;
     }
 
     @Override
-    public String deleteWorkExpbyId(String resumeId, String id) {
+    public Map<String, String> deleteWorkExpbyId(String resumeId, String id) {
         WorkExperienceId wid = new WorkExperienceId(id, resumeId);
 
         resumeRepository.findById(wid.getResumeId())
@@ -90,7 +95,10 @@ public class WorkExpServiceImpl implements WorkExpService {
                 .orElseThrow(() -> new CustomNotFoundException(String.format("WorkExperience with id %s was not found", wid.getId())));
 
         repository.delete(response);
+        Map<String, String> map = new HashMap<>();
+        map.put("id", wid.getId());
+        map.put("resumeId", wid.getResumeId());
 
-        return resumeId;
+        return map;
     }
 }

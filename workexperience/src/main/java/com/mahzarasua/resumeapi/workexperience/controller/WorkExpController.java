@@ -24,13 +24,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 @Validated
 @RestController
 @RequestMapping(value = "/api/v1/work", produces = MediaType.APPLICATION_JSON_VALUE)
 @SecurityRequirement(name = "jwtAuth")
 public class WorkExpController {
     @Autowired
-    private WorkExpService workExpService;
+    private WorkExpService service;
 
     @GetMapping(value = "/{resumeId}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
@@ -53,7 +55,7 @@ public class WorkExpController {
                             schema = @Schema(implementation = ExceptionBody.class))})
     })
     public WorkExpResponse getWorkExpsbyId(@PathVariable String resumeId) {
-        return workExpService.getWorkExpbyResourceId(resumeId);
+        return service.getWorkExpbyResourceId(resumeId);
     }
 
     @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -77,7 +79,7 @@ public class WorkExpController {
                             schema = @Schema(implementation = ExceptionBody.class))})
     })
     public WorkExpResponse createWorkExps(@RequestBody WorkExpRequest request) {
-        return workExpService.saveWorkExp(request, null);
+        return service.saveWorkExp(request, null);
     }
 
     @DeleteMapping(value = "/{resumeId}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -100,9 +102,9 @@ public class WorkExpController {
                     content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = ExceptionBody.class))})
     })
-    public String deleteWorkExps(@PathVariable String resumeId,
-                                 @RequestParam(required = false) String id) {
-        return (id != null) ? workExpService.deleteWorkExpbyId(resumeId, id)
-                : workExpService.deleteWorkExpbyResumeId(resumeId);
+    public Map<String, String> deleteWorkExps(@PathVariable String resumeId,
+                                              @RequestParam(required = false) String id) {
+        return (id != null) ? service.deleteWorkExpbyId(resumeId, id)
+                : service.deleteWorkExpbyResumeId(resumeId);
     }
 }
