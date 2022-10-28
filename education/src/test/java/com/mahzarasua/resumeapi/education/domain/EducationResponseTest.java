@@ -8,21 +8,21 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-import static com.mahzarasua.resumeapi.education.DummyTestEducationData.dummyEducationRequestData;
+import static com.mahzarasua.resumeapi.education.DummyTestEducationData.dummyEducationResponseData;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class EducationRequestTest {
+public class EducationResponseTest {
 
-    private static EducationRequest r;
-    private static List<EducationRequest.EducationRequests> list;
+    private static EducationResponse r;
+    private static List<EducationResponse.EducationResponses> list;
 
-    private static final Logger log = LoggerFactory.getLogger(EducationRequestTest.class);
+    private static final Logger log = LoggerFactory.getLogger(EducationResponseTest.class);
 
     @BeforeEach
     public void init(){
         log.info("Starting init");
-        r = dummyEducationRequestData();
+        r = dummyEducationResponseData();
         log.info("Request generated: {}", r);
         list = r.getEducationList();
         log.info("Ending init");
@@ -30,15 +30,15 @@ public class EducationRequestTest {
 
     @Test
     public void test_Request(){
-        EducationRequest educationRequest1 = new EducationRequest(list);
-        assertEquals(r, educationRequest1);
-        assertThat(educationRequest1).usingRecursiveComparison().isEqualTo(r);
+        EducationResponse EducationResponse1 = new EducationResponse(list);
+        assertEquals(r, EducationResponse1);
+        assertThat(EducationResponse1).usingRecursiveComparison().isEqualTo(r);
     }
 
     @Test
     public void test_innerClass(){
-        EducationRequest.EducationRequests tmp = list.get(0);
-        EducationRequest.EducationRequests record = new EducationRequest.EducationRequests(tmp.getId(),
+        EducationResponse.EducationResponses tmp = list.get(0);
+        EducationResponse.EducationResponses record = new EducationResponse.EducationResponses(tmp.getId(),
                 tmp.getResumeId(), tmp.getName(), tmp.getCareer(), tmp.getDegree(),
                 tmp.getStartDate(), tmp.getEndDate());
         assertEquals(r.getEducationList().get(0), record);
@@ -47,9 +47,9 @@ public class EducationRequestTest {
 
     @Test
     public void test_builder(){
-        EducationRequest educationRequest1 = EducationRequest.builder().educationList(list).build();
-        assertEquals(r, educationRequest1);
-        AssertionsForClassTypes.assertThat(educationRequest1).usingRecursiveComparison().isEqualTo(r);
+        EducationResponse EducationResponse1 = EducationResponse.builder().educationList(list).build();
+        assertEquals(r, EducationResponse1);
+        AssertionsForClassTypes.assertThat(EducationResponse1).usingRecursiveComparison().isEqualTo(r);
     }
 
 }

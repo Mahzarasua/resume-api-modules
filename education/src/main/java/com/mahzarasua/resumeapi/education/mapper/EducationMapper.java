@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 
 @Component
-public class CustomMapper extends ResumeMapper {
+public class EducationMapper extends ResumeMapper {
 
     @Override
     protected void configure(MapperFactory factory){

@@ -5,7 +5,7 @@ import com.mahzarasua.resumeapi.configuration.model.School;
 import com.mahzarasua.resumeapi.configuration.model.School.SchoolId;
 import com.mahzarasua.resumeapi.education.domain.EducationRequest;
 import com.mahzarasua.resumeapi.education.domain.EducationResponse;
-import com.mahzarasua.resumeapi.education.mapper.CustomMapper;
+import com.mahzarasua.resumeapi.education.mapper.EducationMapper;
 import com.mahzarasua.resumeapi.education.repository.EducationRepository;
 import com.mahzarasua.resumeapi.education.repository.ResumeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ public class EducationServiceImpl implements EducationService {
     private ResumeRepository resumeRepository;
 
     @Autowired
-    private CustomMapper mapper;
+    private EducationMapper mapper;
 
     @Override
     public EducationResponse getEducationbyResourceId(String resumeId) {
