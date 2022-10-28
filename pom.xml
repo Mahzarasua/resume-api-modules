@@ -34,6 +34,8 @@
     <ma.glasnost.orika.version>1.5.4</ma.glasnost.orika.version>
     <springdoc.openapi.maven.plugin.version>1.4</springdoc.openapi.maven.plugin.version>
     <spring-cloud.version>2021.0.2</spring-cloud.version>
+    <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
+    <jacoco-maven-plugin.version>0.8.8</jacoco-maven-plugin.version>
   </properties>
 
   <dependencyManagement>
@@ -120,6 +122,30 @@
               <phase>integration-test</phase>
               <goals>
                 <goal>generate</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>${maven-surefire-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.jacoco</groupId>
+          <artifactId>jacoco-maven-plugin</artifactId>
+          <version>${jacoco-maven-plugin.version}</version>
+          <executions>
+            <execution>
+              <id>prepare-agent</id>
+              <goals>
+                <goal>prepare-agent</goal>
+              </goals>
+            </execution>
+            <execution>
+              <id>report</id>
+              <phase>test</phase>
+              <goals>
+                <goal>report</goal>
               </goals>
             </execution>
           </executions>
