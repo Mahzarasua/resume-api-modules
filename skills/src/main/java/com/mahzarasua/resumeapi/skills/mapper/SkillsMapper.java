@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 
 @Component
-public class CustomMapper extends ResumeMapper {
+public class SkillsMapper extends ResumeMapper {
 
     @Override
     protected void configure(MapperFactory factory){
@@ -32,7 +32,15 @@ public class CustomMapper extends ResumeMapper {
                 .field("id.id","id")
                 .field("id.resumeId","resumeId")
                 .byDefault().mapNulls(false).register();
+        factory.classMap(Skill.class, SkillsRequest.SkillsRequests.class)
+                .field("id.id","id")
+                .field("id.resumeId","resumeId")
+                .byDefault().mapNulls(false).register();
         factory.classMap(SkillsRequest.SkillsRequests.class, Skill.class)
+                .field("id","id.id")
+                .field("resumeId","id.resumeId")
+                .byDefault().mapNulls(false).register();
+        factory.classMap(SkillsResponse.SkillsResponses.class, Skill.class)
                 .field("id","id.id")
                 .field("resumeId","id.resumeId")
                 .byDefault().mapNulls(false).register();

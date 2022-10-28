@@ -5,7 +5,7 @@ import com.mahzarasua.resumeapi.configuration.model.Skill;
 import com.mahzarasua.resumeapi.configuration.model.Skill.SkillId;
 import com.mahzarasua.resumeapi.skills.domain.SkillsRequest;
 import com.mahzarasua.resumeapi.skills.domain.SkillsResponse;
-import com.mahzarasua.resumeapi.skills.mapper.CustomMapper;
+import com.mahzarasua.resumeapi.skills.mapper.SkillsMapper;
 import com.mahzarasua.resumeapi.skills.repository.ResumeRepository;
 import com.mahzarasua.resumeapi.skills.repository.SkillsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ public class SkillsServiceImpl implements SkillsService {
     private ResumeRepository resumeRepository;
 
     @Autowired
-    private CustomMapper mapper;
+    private SkillsMapper mapper;
 
     @Override
     public SkillsResponse getSkillsbyResourceId(String resumeId) {

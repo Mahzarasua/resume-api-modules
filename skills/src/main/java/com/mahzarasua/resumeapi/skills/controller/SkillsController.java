@@ -54,7 +54,7 @@ public class SkillsController {
                     content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = ExceptionBody.class))})
     })
-    public SkillsResponse getEducationListbyId(@PathVariable String resumeId) {
+    public SkillsResponse getSkillListbyId(@PathVariable String resumeId) {
         return service.getSkillsbyResourceId(resumeId);
     }
 
@@ -78,7 +78,7 @@ public class SkillsController {
                     content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = ExceptionBody.class))})
     })
-    public SkillsResponse createEducationList(@RequestBody SkillsRequest request) {
+    public SkillsResponse createSkillList(@RequestBody SkillsRequest request) {
         return service.saveSkills(request, null);
     }
 
@@ -102,8 +102,8 @@ public class SkillsController {
                     content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = ExceptionBody.class))})
     })
-    public Map<String, String> deleteEducationList(@PathVariable String resumeId,
-                                                   @RequestParam(required = false) String id) {
+    public Map<String, String> deleteSkillList(@PathVariable String resumeId,
+                                               @RequestParam(required = false) String id) {
         return (id != null) ? service.deleteSkillsbyId(resumeId, id)
                 : service.deleteSkillsbyResumeId(resumeId);
     }

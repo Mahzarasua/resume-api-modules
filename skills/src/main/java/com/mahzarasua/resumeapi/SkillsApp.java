@@ -1,4 +1,4 @@
-package com.mahzarasua.resumeapi.skills;
+package com.mahzarasua.resumeapi;
 
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
